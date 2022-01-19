@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('customer_vouchers', {
+    await queryInterface.createTable('customer_photos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,6 +10,9 @@ module.exports = {
       },
       customer_id: {
         type: Sequelize.BIGINT(20)
+      },
+      picture: {
+        type: Sequelize.TEXT
       },
       created_at: {
         allowNull: false,
@@ -22,6 +25,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('customer_vouchers');
+    await queryInterface.dropTable('customer_photos');
   }
 };

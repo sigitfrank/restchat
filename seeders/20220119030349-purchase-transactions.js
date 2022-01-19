@@ -2,19 +2,92 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const customerIds = [1,2,2,2,2,3,4,5,6,7,7,7,8,8,9,10]
-    const transactions = []
-    customerIds.forEach(customerId=>{
-      const date = new Date()            
-      transactions.push({
-        customer_id: customerId,
-        total_spent: 100,
-        total_saving: 25,
-        transaction_at: date,
-        created_at: new Date(),
-        updated_at: date
-      })
-    })
+    const transactions = [
+      {
+        customer_id:1,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:2,
+        total_spent:35,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:2,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:2,
+        total_spent:50,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:3,
+        total_spent:5,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:4,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:5,
+        total_spent:15,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:6,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:7,
+        total_spent:35,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:7,
+        total_spent:35,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:7,
+        total_spent:30,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:8,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:9,
+        total_spent:25,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+      {
+        customer_id:10,
+        total_spent:45,
+        total_saving:20,
+        transaction_at:new Date()
+      },
+    ]
     return queryInterface.bulkInsert('purchase_transactions', transactions);
 
   },
