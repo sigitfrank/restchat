@@ -20,7 +20,7 @@ module.exports = {
       },
       date_of_birth: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       contact_number: {
         allowNull: false,
