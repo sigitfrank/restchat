@@ -14,6 +14,9 @@ module.exports = {
       picture: {
         type: Sequelize.TEXT
       },
+      status: {
+        type: Sequelize.BOOLEAN
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
