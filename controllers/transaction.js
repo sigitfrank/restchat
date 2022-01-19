@@ -21,12 +21,9 @@ const postTransaction = (req, res) => {
         connection.query('INSERT INTO purchase_transactions (`customer_id`, `total_spent`, `total_saving`, `transaction_at`, `created_at`, `updated_at`) VALUES (?,?,?,?,?,?)', [id, price, 20, date, date, date], function (err, transaction) {
             const newTransaction = {
                 id: transaction.insertId,
-                total_spent: price,
-                total_saving: 20,
+                total_spent: +price + '.00',
+                total_saving: '20.00',
                 transaction_at: date,
-                created_at: date,
-                updated_at: date,
-
             }
             if (err) throw err
             return res.status(200).json({ success: true, newTransaction })
