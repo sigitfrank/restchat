@@ -7,7 +7,11 @@ const getTransactions = (req, res) => {
         connection.release()
         connection.query('SELECT * FROM purchase_transactions WHERE customer_id=?', [id], function (err, transactions) {
             if (err) throw err
-            return res.status(200).json({ success: true, transactions })
+            const totalTransaction = transactions.length
+            const totalSpent = transactions.map(transaction => +transaction.total_spent).reduce((accumulator, item) => {
+                return accumulator + item
+              }, 0)
+            return res.status(200).json({ success: true, transactions, totalTransaction, totalSpent })
         })
     })
 }
