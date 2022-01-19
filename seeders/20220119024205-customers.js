@@ -11,7 +11,7 @@ module.exports = {
         first_name: firstName,
         last_name: casual.last_name,
         gender: genders[Math.floor(Math.random() * genders.length)],
-        email: `${firstName}@gmail.com`,
+        email: `${firstName}${index+1}@gmail.com`,
         date_of_birth: casual.date(format = 'YYYY-MM-DD'),
         contact_number: casual.phone,
         created_at: date,
