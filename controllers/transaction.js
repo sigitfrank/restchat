@@ -10,8 +10,12 @@ const getTransactions = (req, res) => {
             const totalTransaction = transactions.length
             const totalSpent = transactions.map(transaction => +transaction.total_spent).reduce((accumulator, item) => {
                 return accumulator + item
-              }, 0)
-            return res.status(200).json({ success: true, transactions, totalTransaction, totalSpent })
+            }, 0)
+            connection.query('SELECT count(customer_id) as total, customer_id, transaction_at FROM purchase_transactions WHERE DATE_SUB(NOW(), INTERVAL 30 DAY) <= DATE(transaction_at) AND customer_id = ? GROUP BY DATE(transaction_at), customer_id', [id], function (err, data) {
+                if (err) throw err
+                const last30DaysTransactions = data[0].total
+                return res.status(200).json({ success: true, transactions, totalTransaction, totalSpent, last30DaysTransactions })
+            })
         })
     })
 }
