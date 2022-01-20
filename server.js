@@ -1,11 +1,15 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const fs = require('fs')
+const path = require('path')
+const morgan = require('morgan')
 dotenv.config()
 const cors = require('cors')
 const customerRouter = require('./routes/customer')
 const authRouter = require('./routes/auth')
 const productRouter = require('./routes/product')
 const transactionRouter = require('./routes/transaction')
+const morganLogs = require('./helpers/morganLogs')
 const app = express()
 app.set('trust proxy', 1)
 app.use(express.static('public'))
@@ -18,6 +22,10 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
+
+morganLogs()
+const accessLogStream = fs.createWriteStream(path.join('./logs/', 'access.log'), { flags: 'a' })
+app.use(morgan(':remote-addr - :remote-user [:realclfdate] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"', { stream: accessLogStream }))
 
 app.use('/api/v1/login', authRouter)
 app.use('/api/v1/customer', customerRouter)
