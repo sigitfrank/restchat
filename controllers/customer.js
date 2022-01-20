@@ -50,7 +50,13 @@ const postCustomerVoucher = (req, res) => {
         connection.release()
         connection.query('INSERT INTO customer_vouchers (`customer_id`, `created_at`, `updated_at`) VALUES (?,?,?)', [customer_id, date, date], function (err, data) {
             if (err) throw err
-            return res.status(201).json({ success: true, msg: 'Voucher Claimed' })
+            return res.status(201).json({
+                success: true, msg: 'Voucher Claimed', newVoucher: {
+                    customer_id,
+                    created_at: date,
+                    updated_at: date
+                }
+            })
         })
     })
 }
