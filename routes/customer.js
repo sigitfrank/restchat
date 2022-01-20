@@ -2,6 +2,7 @@ const express = require('express')
 const multer = require('multer')
 const fs = require('fs')
 const { getCustomerImage, postCustomerPhoto, postCustomerVoucher, getCustomerVoucher, getCheckVoucher } = require('../controllers/customer.js')
+const authenticateUser = require('../middleware/authenticateUser.js')
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -30,11 +31,11 @@ const upload = multer({
 
 
 const customerRouter = express.Router()
-customerRouter.get('/:customer_id', getCustomerImage)
-customerRouter.post('/', upload, postCustomerPhoto)
-customerRouter.get('/voucher/:customer_id', getCustomerVoucher)
-customerRouter.post('/voucher', postCustomerVoucher)
-customerRouter.get('/voucher/check/status', getCheckVoucher)
+customerRouter.get('/:customer_id', authenticateUser, getCustomerImage)
+customerRouter.post('/', [authenticateUser, upload], postCustomerPhoto)
+customerRouter.get('/voucher/:customer_id', authenticateUser, getCustomerVoucher)
+customerRouter.post('/voucher', authenticateUser, postCustomerVoucher)
+customerRouter.get('/voucher/check/status', authenticateUser, getCheckVoucher)
 
 
 module.exports = customerRouter
