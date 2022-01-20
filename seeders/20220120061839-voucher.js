@@ -4,7 +4,6 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const date = new Date()
     return queryInterface.bulkInsert('vouchers', [{
-      status:true,
       last_claimed:null,
       created_at:date,
       updated_at:date
