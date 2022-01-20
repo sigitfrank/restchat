@@ -2,6 +2,7 @@ const db = require("../database/db.js")
 const generateAccessToken = require("../middleware/generateAccessToken.js")
 const login = (req, res) => {
     const { email } = req.body
+    if (!email) return res.status(400).json({ success: false, msg: 'email is not provided' })
     db.getConnection((err, connection) => {
         if (err) throw err
         console.log(`login Connection id ${connection.threadId}`)

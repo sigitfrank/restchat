@@ -2,6 +2,8 @@ const db = require("../database/db.js")
 
 const getTransactions = (req, res) => {
     const { id } = req.params
+    if (!id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
+    
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()
@@ -24,6 +26,9 @@ const getTransactions = (req, res) => {
 
 const postTransaction = (req, res) => {
     const { id, price } = req.body
+    if (!id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
+    if (!price) return res.status(400).json({ success: false, msg: 'price id is not provided' })
+
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()

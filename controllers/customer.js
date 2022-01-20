@@ -2,6 +2,7 @@ const db = require("../database/db.js")
 
 const getCustomerImage = (req, res) => {
     const { customer_id } = req.params
+    if (!customer_id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()
@@ -15,6 +16,7 @@ const getCustomerImage = (req, res) => {
 
 const postCustomerPhoto = (req, res) => {
     const { id } = req.body
+    if (!id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
     if (!req.file) return res.status(400).json({ success: false, msg: 'Image can not be empty' })
     const imagePath = `assets/${req.file.filename}`
     const date = new Date()
@@ -31,6 +33,7 @@ const postCustomerPhoto = (req, res) => {
 
 const getCustomerVoucher = (req, res) => {
     const { customer_id } = req.params
+    if (!customer_id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()
@@ -44,6 +47,7 @@ const getCustomerVoucher = (req, res) => {
 
 const postCustomerVoucher = (req, res) => {
     const { customer_id } = req.body
+    if (!customer_id) return res.status(400).json({ success: false, msg: 'customer id is not provided' })
     const date = new Date()
     db.getConnection((err, connection) => {
         if (err) throw err
