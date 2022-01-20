@@ -1,5 +1,6 @@
 const express = require('express')
 const multer = require('multer')
+const fs = require('fs')
 const { getCustomers, postCustomerPhoto } = require('../controllers/customer.js')
 
 const storage = multer.diskStorage({
@@ -19,8 +20,8 @@ const upload = multer({
         fileSize: 1024 * 1024, //1mb
     },
     fileFilter: (req, file, callback) => {
-        const { customer_id } = req.body
-        if (!customer_id) return callback(null, false)
+        const { id } = req.body
+        if (!id) return callback(null, false)
         const mimetypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/JPEG', 'image/JPG', 'image/PNG']
         if (!mimetypes.includes(file.mimetype)) return callback(null, false)
         return callback(null, true)
