@@ -50,7 +50,7 @@ const postCustomerVoucher = (req, res) => {
         connection.release()
         connection.query('INSERT INTO customer_vouchers (`customer_id`, `created_at`, `updated_at`) VALUES (?,?,?)', [customer_id, date, date], function (err, data) {
             if (err) throw err
-            connection.query('UPDATE vouchers SET status = ?, last_claimed = ?', [0, new Date], function (err, dataVoucher) {
+            connection.query('UPDATE vouchers SET last_claimed = ?', [new Date], function (err, dataVoucher) {
                 if (err) throw err
                 return res.status(201).json({
                     success: true, msg: 'Voucher Claimed', newVoucher: {
@@ -68,10 +68,10 @@ const getCheckVoucher = (req, res) => {
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()
-        connection.query('SELECT * FROM `vouchers`', function (err, vouchers) {
+        connection.query('SELECT last_claimed, IF((last_claimed + INTERVAL 10 MINUTE) <= now(), true, false) as status,(last_claimed + INTERVAL 10 MINUTE) as next_voucher_time FROM `vouchers`', function (err, vouchers) {
             if (err) throw console.error()
-            const { status, last_claimed } = vouchers[0]
-            return res.status(200).json({ success: true, status, last_claimed })
+            const { status, last_claimed, next_voucher_time } = vouchers[0]
+            return res.status(200).json({ success: true, status, last_claimed, next_voucher_time })
         })
     })
 }

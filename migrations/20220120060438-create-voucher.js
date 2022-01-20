@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.BIGINT(20)
       },
-      status: {
-        type: Sequelize.BOOLEAN
-      },
       last_claimed: {
         type: Sequelize.DATE
       },

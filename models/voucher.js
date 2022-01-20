@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   voucher.init({
-    status: DataTypes.BOOLEAN,
     last_claimed: DataTypes.DATE
   }, {
     sequelize,
