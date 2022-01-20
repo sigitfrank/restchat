@@ -11,13 +11,13 @@ module.exports = {
       },
       {
         name:'E-Book',
-        price:50,
+        price:40,
         created_at:new Date(),
         updated_at:new Date()
       },
       {
         name:'Laptop',
-        price:75,
+        price:35,
         created_at:new Date(),
         updated_at:new Date()
       },

@@ -10,9 +10,7 @@
     "db": "npx sequelize-cli db:create",
     "migrate": "npx sequelize-cli db:migrate",
     "undo-migrate": "npx sequelize-cli db:migrate:undo:all",
-    "seed-customer": "npx sequelize-cli db:seed --seed 20220119024205-customers.js",
-    "seed-transaction": "npx sequelize-cli db:seed --seed 20220119030349-purchase-transactions.js",
-    "seed-product": "npx sequelize-cli db:seed --seed 20220119073505-products.js"
+    "seed": "npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",
