@@ -72,11 +72,17 @@ const getCheckVoucher = (req, res) => {
     db.getConnection((err, connection) => {
         if (err) throw err
         connection.release()
-        connection.query('SELECT last_claimed, IF((last_claimed + INTERVAL 10 MINUTE) <= now(), true, false) as status,(last_claimed + INTERVAL 10 MINUTE) as next_voucher_time FROM `vouchers`', function (err, vouchers) {
+        connection.query('SELECT count(id) as total_voucher_attemps FROM `customer_vouchers`', function (err, totalAttemps) {
             if (err) throw console.error()
-            const { status, last_claimed, next_voucher_time } = vouchers[0]
-            return res.status(200).json({ success: true, status, last_claimed, next_voucher_time })
+            const totalVoucherAttemps = totalAttemps[0].total_voucher_attemps
+            if(totalVoucherAttemps >= 1000) return res.status(400).json({ success: false, msg:'Voucher is not available' })
+            connection.query('SELECT last_claimed, IF((last_claimed + INTERVAL 10 MINUTE) <= now(), true, false) as status,(last_claimed + INTERVAL 10 MINUTE) as next_voucher_time FROM `vouchers`', function (err, vouchers) {
+                if (err) throw console.error()
+                const { status, last_claimed, next_voucher_time } = vouchers[0]
+                return res.status(200).json({ success: true, status, last_claimed, next_voucher_time })
+            })
         })
+        
     })
 }
 

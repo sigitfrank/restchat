@@ -7,6 +7,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Please add .env file to your project directory. I already added an example.
 
+## Before Running Scripts
+
+Make sure your local server connection is connected (Start your Apache and MySQL). I used XAMPP application for my local server.
+
 ## Available Scripts
 
 In the project directory, you can run:
